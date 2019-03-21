@@ -6,6 +6,7 @@
 /*********************
  *      INCLUDES
  *********************/
+#include <stdio.h>
 #include "lv_tabview.h"
 #if LV_USE_TABVIEW != 0
 
@@ -205,6 +206,7 @@ lv_obj_t * lv_tabview_add_tab(lv_obj_t * tabview, const char * name)
     lv_obj_t * h = lv_page_create(ext->content, NULL);
     lv_obj_set_size(h, lv_obj_get_width(tabview), lv_obj_get_height(ext->content));
     lv_page_set_sb_mode(h, LV_SB_MODE_AUTO);
+    lv_page_set_scroll_propagation(h, true);
     lv_page_set_style(h, LV_PAGE_STYLE_BG, &lv_style_transp);
     lv_page_set_style(h, LV_PAGE_STYLE_SCRL, &lv_style_transp);
 
@@ -726,6 +728,7 @@ static void tabpage_pressed_handler(lv_obj_t * tabview, lv_obj_t * tabpage)
  */
 static void tabpage_pressing_handler(lv_obj_t * tabview, lv_obj_t * tabpage)
 {
+#if 0
     lv_tabview_ext_t * ext = lv_obj_get_ext_attr(tabview);
     lv_indev_t * indev = lv_indev_get_act();
     lv_point_t point_act;
@@ -735,15 +738,19 @@ static void tabpage_pressing_handler(lv_obj_t * tabview, lv_obj_t * tabpage)
 
     if(ext->draging == 0) {
         if(x_diff >= LV_INDEV_DRAG_LIMIT || x_diff <= -LV_INDEV_DRAG_LIMIT) {
+
             ext->drag_hor = 1;
             ext->draging = 1;
             lv_obj_set_drag(lv_page_get_scrl(tabpage), false);
         } else if(y_diff >= LV_INDEV_DRAG_LIMIT || y_diff <= -LV_INDEV_DRAG_LIMIT) {
+        	printf("Drag y tabview\n");
             ext->drag_hor = 0;
             ext->draging = 1;
         }
     }
+
     if(ext->drag_hor) {
+    	printf("Drag tabview\n");
         lv_obj_set_x(ext->content, lv_obj_get_x(ext->content) + point_act.x - ext->point_last.x);
         ext->point_last.x = point_act.x;
         ext->point_last.y = point_act.y;
@@ -756,6 +763,7 @@ static void tabpage_pressing_handler(lv_obj_t * tabview, lv_obj_t * tabpage)
 
         lv_obj_set_x(ext->indic, indic_width * ext->tab_cur + tabs_style->body.padding.inner * ext->tab_cur + indic_style->body.padding.left - p);
     }
+#endif
 }
 
 /**
