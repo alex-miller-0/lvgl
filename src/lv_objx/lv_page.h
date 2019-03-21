@@ -76,6 +76,8 @@ typedef struct
     uint8_t arrow_scroll   :1;        /*1: Enable scrolling with LV_GROUP_KEY_LEFT/RIGHT/UP/DOWN*/
     uint8_t scroll_prop    :1;        /*1: Propagate the scrolling the the parent if the edge is reached*/
     uint8_t scroll_prop_ip :1;        /*1: Scroll propagation is in progress (used by the library)*/
+    uint8_t scroll_prop_hor:1;		  /*1: Propagation occurs on horizontal scroll*/
+    uint8_t scroll_prop_ver:1;		  /*1: Propagation occurs on vertical scroll*/
 } lv_page_ext_t;
 
 enum {
@@ -134,7 +136,7 @@ void lv_page_set_arrow_scroll(lv_obj_t * page, bool en);
  * @param page pointer to a Page
  * @param en true or false to enable/disable scroll propagation
  */
-void lv_page_set_scroll_propagation(lv_obj_t * page, bool en);
+void lv_page_set_scroll_propagation(lv_obj_t * page, bool hor_en, bool ver_en);
 
 /**
  * Enable the edge flash effect. (Show an arc when the an edge is reached)
@@ -240,11 +242,18 @@ lv_sb_mode_t lv_page_get_sb_mode(const lv_obj_t * page);
 bool lv_page_get_arrow_scroll(const lv_obj_t * page);
 
 /**
- * Get the scroll propagation property
+ * Get the horizontal scroll propagation property
  * @param page pointer to a Page
  * @return true or false
  */
-bool lv_page_get_scroll_propagation(lv_obj_t * page);
+bool lv_page_get_scroll_propagation_hor(lv_obj_t * page);
+
+/**
+ * Get the vertical scroll propagation property
+ * @param page pointer to a Page
+ * @return true or false
+ */
+bool lv_page_get_scroll_propagation_ver(lv_obj_t * page);
 
 /**
  * Get the edge flash effect property.

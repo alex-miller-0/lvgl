@@ -93,6 +93,8 @@ lv_obj_t * lv_page_create(lv_obj_t * par, const lv_obj_t * copy)
     ext->arrow_scroll = 0;
     ext->scroll_prop = 0;
     ext->scroll_prop_ip = 0;
+    ext->scroll_prop_hor = 0;
+    ext->scroll_prop_ver = 0;
 
     /*Init the new page object*/
     if(copy == NULL) {
@@ -211,12 +213,15 @@ void lv_page_set_arrow_scroll(lv_obj_t * page, bool en)
 /**
  * Enable the scroll propagation feature. If enabled then the page will move its parent if there is no more space to scroll.
  * @param page pointer to a Page
- * @param en true or false to enable/disable scroll propagation
+ * @param hor_en true or false to enable/disable horizontal scroll propagation
+ * @param hor_en true or false to enable/disable vertical scroll propagation
  */
-void lv_page_set_scroll_propagation(lv_obj_t * page, bool en)
+void lv_page_set_scroll_propagation(lv_obj_t * page, bool hor_en, bool ver_en)
 {
     lv_page_ext_t * ext = lv_obj_get_ext_attr(page);
-    ext->scroll_prop = en ? 1 : 0;
+    ext->scroll_prop = (hor_en || ver_en) ? 1 : 0;
+    ext->scroll_prop_hor = hor_en;
+    ext->scroll_prop_ver = ver_en;
 }
 
 /**
@@ -300,14 +305,25 @@ bool lv_page_get_arrow_scroll(const lv_obj_t * page)
 }
 
 /**
- * Get the scroll propagation property
+ * Get the horizontal scroll propagation property
  * @param page pointer to a Page
  * @return true or false
  */
-bool lv_page_get_scroll_propagation(lv_obj_t * page)
+bool lv_page_get_scroll_propagation_hor(lv_obj_t * page)
 {
     lv_page_ext_t * ext = lv_obj_get_ext_attr(page);
-    return ext->scroll_prop == 0 ? false : true;
+    return ext->scroll_prop_hor == 0 ? false : true;
+}
+
+/**
+ * Get the vertical scroll propagation property
+ * @param page pointer to a Page
+ * @return true or false
+ */
+bool lv_page_get_scroll_propagation_ver(lv_obj_t * page)
+{
+    lv_page_ext_t * ext = lv_obj_get_ext_attr(page);
+    return ext->scroll_prop_ver == 0 ? false : true;
 }
 
 /**
@@ -969,8 +985,8 @@ static lv_res_t lv_page_scrollable_signal(lv_obj_t * scrl, lv_signal_t sign, voi
             lv_obj_set_pos(scrl, new_x, new_y);
 
             if(page_ext->scroll_prop_ip) {
-                if(refr_y) lv_obj_set_y(page_parent, lv_obj_get_y(page_parent) + diff_y);
-                if(refr_x) lv_obj_set_x(page_parent, lv_obj_get_x(page_parent) + diff_x);
+                if(page_ext->scroll_prop_ver && refr_y) lv_obj_set_y(page_parent, lv_obj_get_y(page_parent) + diff_y);
+                if(page_ext->scroll_prop_hor && refr_x) lv_obj_set_x(page_parent, lv_obj_get_x(page_parent) + diff_x);
             }
         }
 

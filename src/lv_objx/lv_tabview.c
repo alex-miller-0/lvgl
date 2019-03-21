@@ -206,7 +206,7 @@ lv_obj_t * lv_tabview_add_tab(lv_obj_t * tabview, const char * name)
     lv_obj_t * h = lv_page_create(ext->content, NULL);
     lv_obj_set_size(h, lv_obj_get_width(tabview), lv_obj_get_height(ext->content));
     lv_page_set_sb_mode(h, LV_SB_MODE_AUTO);
-    lv_page_set_scroll_propagation(h, true);
+    lv_page_set_scroll_propagation(h, true, false);
     lv_page_set_style(h, LV_PAGE_STYLE_BG, &lv_style_transp);
     lv_page_set_style(h, LV_PAGE_STYLE_SCRL, &lv_style_transp);
 

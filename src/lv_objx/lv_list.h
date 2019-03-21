@@ -159,11 +159,12 @@ static inline void lv_list_set_sb_mode(lv_obj_t * list, lv_sb_mode_t mode)
 /**
  * Enable the scroll propagation feature. If enabled then the List will move its parent if there is no more space to scroll.
  * @param list pointer to a List
- * @param en true or false to enable/disable scroll propagation
+ * @param hor_en true or false to enable/disable horizontal scroll propagation
+ * @param ver_en true or false to enable/disable vertical scroll propagation
  */
-static inline void lv_list_set_scroll_propagation(lv_obj_t * list, bool en)
+static inline void lv_list_set_scroll_propagation(lv_obj_t * list, bool hor_en, bool ver_en)
 {
-    lv_page_set_scroll_propagation(list, en);
+    lv_page_set_scroll_propagation(list, hor_en, ver_en);
 }
 
 /**
@@ -274,13 +275,23 @@ static inline lv_sb_mode_t lv_list_get_sb_mode(const lv_obj_t * list)
 }
 
 /**
- * Get the scroll propagation property
+ * Get the horizontal scroll propagation property
  * @param list pointer to a List
  * @return true or false
  */
-static inline bool lv_list_get_scroll_propagation(lv_obj_t * list)
+static inline bool lv_list_get_scroll_propagation_hor(lv_obj_t * list)
 {
-    return lv_page_get_scroll_propagation(list);
+    return lv_page_get_scroll_propagation_hor(list);
+}
+
+/**
+ * Get the vertical scroll propagation property
+ * @param list pointer to a List
+ * @return true or false
+ */
+static inline bool lv_list_get_scroll_propagation_ver(lv_obj_t * list)
+{
+    return lv_page_get_scroll_propagation_ver(list);
 }
 
 /**

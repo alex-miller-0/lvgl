@@ -223,11 +223,12 @@ static inline void lv_ta_set_sb_mode(lv_obj_t * ta, lv_sb_mode_t mode)
 /**
  * Enable the scroll propagation feature. If enabled then the Text area will move its parent if there is no more space to scroll.
  * @param ta pointer to a Text area
- * @param en true or false to enable/disable scroll propagation
+ * @param hor_en true or false to enable/disable horizontal scroll propagation
+ * @param ver_en true or false to enable/disable vertical scroll propagation
  */
-static inline void lv_ta_set_scroll_propagation(lv_obj_t * ta, bool en)
+static inline void lv_ta_set_scroll_propagation(lv_obj_t * ta, bool hor_en, bool ver_en)
 {
-    lv_page_set_scroll_propagation(ta, en);
+    lv_page_set_scroll_propagation(ta, hor_en, ver_en);
 }
 
 /**
@@ -333,17 +334,27 @@ static inline lv_sb_mode_t lv_ta_get_sb_mode(const lv_obj_t * ta)
 }
 
 /**
- * Get the scroll propagation property
+ * Get the horizontal scroll propagation property
  * @param ta pointer to a Text area
  * @return true or false
  */
-static inline bool lv_ta_get_scroll_propagation(lv_obj_t * ta)
+static inline bool lv_ta_get_scroll_propagation_hor(lv_obj_t * ta)
 {
-    return lv_page_get_scroll_propagation(ta);
+    return lv_page_get_scroll_propagation_hor(ta);
 }
 
 /**
- * Get the scroll propagation property
+ * Get the vertical scroll propagation property
+ * @param ta pointer to a Text area
+ * @return true or false
+ */
+static inline bool lv_ta_get_scroll_propagation_ver(lv_obj_t * ta)
+{
+    return lv_page_get_scroll_propagation_ver(ta);
+}
+
+/**
+ * Get the edge flash property
  * @param ta pointer to a Text area
  * @return true or false
  */
