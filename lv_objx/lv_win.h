@@ -108,7 +108,7 @@ void lv_win_clean(lv_obj_t *obj);
  * @param rel_action a function pointer to call when the button is released
  * @return pointer to the created button object
  */
-lv_obj_t * lv_win_add_btn(lv_obj_t * win, const void * img_src, lv_action_t rel_action);
+lv_obj_t * lv_win_add_btn(lv_obj_t * win, const char * label_text, lv_action_t rel_action);
 
 /*=====================
  * Setter functions

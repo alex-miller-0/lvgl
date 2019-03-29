@@ -163,7 +163,7 @@ void lv_win_clean(lv_obj_t * obj)
  * @param rel_action a function pointer to call when the button is released
  * @return pointer to the created button object
  */
-lv_obj_t * lv_win_add_btn(lv_obj_t * win, const void * img_src, lv_action_t rel_action)
+lv_obj_t * lv_win_add_btn(lv_obj_t * win, const char * label_text, lv_action_t rel_action)
 {
     lv_win_ext_t * ext = lv_obj_get_ext_attr(win);
 
@@ -173,10 +173,8 @@ lv_obj_t * lv_win_add_btn(lv_obj_t * win, const void * img_src, lv_action_t rel_
     lv_obj_set_size(btn, ext->btn_size, ext->btn_size);
     lv_btn_set_action(btn, LV_BTN_ACTION_CLICK, rel_action);
 
-    lv_obj_t * img = lv_img_create(btn, NULL);
-    lv_obj_set_click(img, false);
-    lv_img_set_src(img, img_src);
-
+    lv_obj_t * label = lv_label_create(btn, NULL);
+    lv_label_set_text(label, label_text);
     lv_win_realign(win);
 
     return btn;
